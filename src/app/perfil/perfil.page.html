@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Datos del Paciente</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Usuario:</strong> {{ usuario }}</p>
+      <p><strong>Hora de ingreso:</strong> {{ horaIngreso }}</p>      <p><strong>Correo:</strong> {{ email }}</p>
+      <p><strong>Teléfono:</strong> 555-123456</p>
+      <p><strong>Edad:</strong> 35 años</p>
+      <p><strong>Seguro:</strong> Salud Total</p>
+    </ion-card-content>
+    <ion-button expand="block" color="primary" (click)="irAHome()">
+  Volver a Inicio
+</ion-button>
+  </ion-card>
+</ion-content>

@@ -1,20 +1,81 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Inicio</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleTheme()" fill="clear">
+        <ion-icon [name]="isDark ? 'sunny' : 'moon'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Clima -->
+  <ion-card class="animated-card" *ngIf="clima">
+    <ion-card-header>
+      <ion-card-title>
+        Clima de hoy
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div>{{ clima.data[0].weather.description }}</div>
+      <div>Temperatura: {{ clima.data[0].temp }}°C</div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Bienvenida -->
+  <ion-card class="animated-card">
+    <ion-card-header>
+      <ion-card-title>
+        Bienvenido, {{ usuario }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Accede a tus servicios de salud, agenda tus citas y consulta tu información personal.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botones de navegación -->
+  <div>
+    <ion-button expand="block" color="primary" (click)="irAPerfil()" class="animated-btn">Mi Perfil</ion-button>
+    <ion-button expand="block" color="primary" fill="outline" (click)="irAContacto()" class="animated-btn">Registros de Horas</ion-button>
+    <ion-button expand="block" color="secondary" (click)="irAQuienesSomos()" class="animated-btn">Quiénes Somos</ion-button>
+    <ion-button expand="block" color="danger" (click)="cerrarSesion()" class="animated-btn">Cerrar Sesión</ion-button>
   </div>
+
+  <!-- Tarjeta: Atención en Clínica -->
+  <ion-card class="animated-card">
+    <ion-card-header>
+      <ion-card-title>
+        Atención en Clínica
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Brindamos atención médica personalizada en nuestras modernas instalaciones.
+    </ion-card-content>
+    <img src="assets/clinica1.jpg" alt="Atención en Clínica" style="width:100%; max-height:300px; object-fit:cover; border-radius: 12px;">
+  </ion-card>
+  
+  <!-- Tarjeta: Equipo Médico Especializado -->
+  <ion-card class="animated-card">
+    <ion-card-header>
+      <ion-card-title>
+        Equipo Médico Especializado
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Nuestro equipo está formado por profesionales altamente capacitados.
+    </ion-card-content>
+    <img src="assets/clinica2.jpg" alt="Equipo Médico" style="width:100%; max-height:300px; object-fit:cover; border-radius: 12px;">
+  </ion-card>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-title size="small" style="text-align:center; font-size: 14px;">
+      © 2025 SaludApp Clínica · <ion-icon name="call-outline"></ion-icon> 0800-123-SALUD · <ion-icon name="mail-outline"></ion-icon> contacto&#64;saludapp.com
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

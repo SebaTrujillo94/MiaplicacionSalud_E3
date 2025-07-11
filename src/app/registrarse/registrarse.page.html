@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Registrarse</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="registroForm" (ngSubmit)="registrar()">
+    <ion-item>
+      <ion-label position="floating">Nombre de usuario</ion-label>
+      <ion-input formControlName="usuario"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="registroForm.get('usuario')?.hasError('required') && registroForm.get('usuario')?.touched">
+      El nombre de usuario es obligatorio.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">Correo electrónico</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="registroForm.get('email')?.hasError('required') && registroForm.get('email')?.touched">
+      El correo es obligatorio.
+    </ion-note>
+    <ion-note color="danger" *ngIf="registroForm.get('email')?.hasError('email') && registroForm.get('email')?.touched">
+      Ingresa un correo válido.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">RUT</ion-label>
+      <ion-input formControlName="rut"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="registroForm.get('rut')?.hasError('required') && registroForm.get('rut')?.touched">
+      El RUT es obligatorio.
+    </ion-note>
+    <ion-note color="danger" *ngIf="registroForm.get('rut')?.hasError('rutInvalido') && registroForm.get('rut')?.touched">
+      Ingresa un RUT válido (ej: 12345678-9).
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" formControlName="clave"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="registroForm.get('clave')?.hasError('required') && registroForm.get('clave')?.touched">
+      La clave es obligatoria.
+    </ion-note>
+    <ion-note color="danger" *ngIf="registroForm.get('clave')?.hasError('minlength') && registroForm.get('clave')?.touched">
+      La clave debe tener al menos 4 caracteres.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">Repetir contraseña</ion-label>
+      <ion-input type="password" formControlName="repetirClave"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="registroForm.get('repetirClave')?.hasError('required') && registroForm.get('repetirClave')?.touched">
+      Debes repetir la contraseña.
+    </ion-note>
+    <ion-note color="danger" *ngIf="registroForm.hasError('noCoincide') && registroForm.get('repetirClave')?.touched">
+      Las contraseñas no coinciden.
+    </ion-note>
+
+    <ion-button expand="block" type="submit" [disabled]="registroForm.invalid">Registrarse</ion-button>
+  </form>
+</ion-content>
