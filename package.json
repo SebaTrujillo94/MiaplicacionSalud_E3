@@ -1,8 +1,23 @@
 {
-  "name": "MiaplicacionSalud",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "name": "mi-aplicacion-salud",
+  "version": "1.0.0",
+  "author": "Tu Nombre <tu-email@ejemplo.com>",
+  "homepage": "https://github.com/tu-usuario/mi-aplicacion-salud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tu-usuario/mi-aplicacion-salud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tu-usuario/mi-aplicacion-salud/issues"
+  },
+  "keywords": [
+    "ionic",
+    "angular",
+    "mobile",
+    "health",
+    "capacitor",
+    "typescript"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +26,7 @@
     "test": "ng test",
     "lint": "ng lint"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^20.0.0",
     "@angular/common": "^20.0.0",
@@ -62,5 +77,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.8.0"
   },
-  "description": "An Ionic project"
+  "description": "Una aplicación móvil desarrollada con Ionic y Angular para el manejo de información de salud"
 }
