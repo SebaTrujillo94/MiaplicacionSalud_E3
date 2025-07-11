@@ -1,14 +1,14 @@
 {
   "name": "mi-aplicacion-salud",
   "version": "1.0.0",
-  "author": "Tu Nombre <tu-email@ejemplo.com>",
-  "homepage": "https://github.com/tu-usuario/mi-aplicacion-salud",
+  "author": "Desarrollador Salud <contacto@miapp-salud.com>",
+  "homepage": "https://github.com/desarrollador-salud/mi-aplicacion-salud",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tu-usuario/mi-aplicacion-salud.git"
+    "url": "https://github.com/desarrollador-salud/mi-aplicacion-salud.git"
   },
   "bugs": {
-    "url": "https://github.com/tu-usuario/mi-aplicacion-salud/issues"
+    "url": "https://github.com/desarrollador-salud/mi-aplicacion-salud/issues"
   },
   "keywords": [
     "ionic",

@@ -30,8 +30,8 @@ Una aplicación móvil desarrollada con Ionic y Angular para el manejo de inform
 
 1. Clona el repositorio:
 ```bash
-git clone <url-del-repositorio>
-cd MiaplicacionSalud
+git clone https://github.com/desarrollador-salud/mi-aplicacion-salud.git
+cd mi-aplicacion-salud
 ```
 
 2. Instala las dependencias:
@@ -102,9 +102,9 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 📞 Contacto
 
-- Autor: [Tu nombre]
-- Email: [tu-email@ejemplo.com]
-- Proyecto: [Link del repositorio]
+- Autor: Desarrollador Salud
+- Email: contacto@miapp-salud.com
+- Proyecto: [Mi Aplicación Salud](https://github.com/desarrollador-salud/mi-aplicacion-salud)
 
 ## 🙏 Agradecimientos
 
