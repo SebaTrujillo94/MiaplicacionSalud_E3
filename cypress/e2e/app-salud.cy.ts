@@ -5,18 +5,25 @@ describe('Mi Aplicación de Salud - Pruebas E2E', () => {
         cy.visit('/');
     });
 
-    it('debería cargar la página de inicio de la aplicación', () => {
-        // Verificar que carga el título "Inicio"
+    it('debería cargar la página de login por defecto', () => {
+        // Verificar que carga el título "Iniciar Sesión" (la app redirige a login)
         cy.get('ion-title').should('be.visible');
-        cy.get('ion-title').should('contain', 'Inicio');
+        cy.get('ion-title').should('contain', 'Iniciar Sesión');
         // Verificar que hay contenido en la página
         cy.get('ion-content').should('be.visible');
     });
 
-    it('debería mostrar contenido de bienvenida', () => {
-        // Verificar que se muestra contenido de bienvenida
-        cy.contains('Bienvenido');
+    it('debería mostrar contenido de login', () => {
+        // Verificar que se muestra contenido de acceso
+        cy.contains('Acceso a SaludApp');
         cy.get('ion-card').should('have.length.greaterThan', 0);
+    });
+
+    it('debería permitir navegar a la página de inicio', () => {
+        cy.visit('/home');
+        cy.get('ion-title').should('contain', 'Inicio');
+        // Verificar que hay contenido de bienvenida en home
+        cy.get('ion-content').should('be.visible');
     });
 
     it('debería permitir navegar a la página de login', () => {
@@ -52,7 +59,7 @@ describe('Mi Aplicación de Salud - Pruebas E2E', () => {
 
     it('debería permitir navegar a FAQ', () => {
         cy.visit('/faq');
-        cy.get('ion-title').should('contain', 'FAQ');
+        cy.contains('Quiénes Somos');
         cy.contains('Preguntas Frecuentes');
     });
 
@@ -61,7 +68,7 @@ describe('Mi Aplicación de Salud - Pruebas E2E', () => {
         
         // Verificar que hay preguntas
         cy.get('ion-card').should('have.length.greaterThan', 0);
-        cy.contains('¿Cómo');
+        cy.contains('¿Cómo agendo una cita médica?');
     });
 
     it('debería permitir navegar a registro', () => {

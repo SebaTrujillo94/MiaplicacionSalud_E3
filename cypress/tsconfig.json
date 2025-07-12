@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress", "node"],
+    "target": "es2020",
+    "lib": ["es2020", "dom"],
+    "types": ["node"],
     "moduleResolution": "node",
     "allowJs": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": false
+    "strict": false,
+    "noEmit": true,
+    "resolveJsonModule": true
   },
   "include": [
-    "**/*.ts"
+    "**/*.ts",
+    "support/cypress-types.d.ts"
   ],
   "exclude": []
 }
