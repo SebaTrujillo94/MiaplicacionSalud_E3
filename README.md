@@ -96,15 +96,7 @@ Las contribuciones son bienvenidas. Para contribuir:
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## 📞 Contacto
-
-- Autor: Desarrollador Salud
-- Email: contacto@miapp-salud.com
-- Proyecto: [Mi Aplicación Salud](https://github.com/desarrollador-salud/mi-aplicacion-salud)
 
 ## 🙏 Agradecimientos
 
