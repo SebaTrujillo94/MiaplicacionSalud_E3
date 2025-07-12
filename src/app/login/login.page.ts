@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -46,7 +46,7 @@ export class LoginPage {
   usuario: string = '';
   contrasena: string = '';
 
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   login() {
     const usuarioGuardado = localStorage.getItem('usuario');

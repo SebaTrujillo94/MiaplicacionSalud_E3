@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonButton } from '@ionic/angular/standalone';
@@ -25,7 +25,7 @@ export class PerfilPage implements OnInit {
   horaIngreso: string | null = '';
   email: string | null = '';
 
-  constructor(private router: Router) {} // <-- AGREGA ESTA LÍNEA
+  private router = inject(Router);
 
   ngOnInit() {
     this.usuario = localStorage.getItem('usuario') || '';

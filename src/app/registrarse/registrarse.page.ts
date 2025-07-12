@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonNote } from '@ionic/angular/standalone';
@@ -39,7 +39,10 @@ function passwordMatchValidator(form: AbstractControl): ValidationErrors | null 
 export class RegistrarsePage {
   registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+
+  constructor() {
     this.registroForm = this.fb.group({
       usuario: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],

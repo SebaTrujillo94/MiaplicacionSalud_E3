@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -35,11 +35,9 @@ export class HomePage implements OnInit {
   clima: any = null;
   isDark: boolean = false;
 
-  constructor(
-    private router: Router,
-    private api: ApiService,
-    private storage: StorageService
-  ) {}
+  private router = inject(Router);
+  private api = inject(ApiService);
+  private storage = inject(StorageService);
 
   async ngOnInit(): Promise<void> {
     // Obtener usuario del almacenamiento persistente

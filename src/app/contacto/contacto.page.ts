@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonIcon } from '@ionic/angular/standalone';
 import { Geolocation } from '@capacitor/geolocation';
@@ -50,7 +50,7 @@ export class ContactoPage {
     { nombre: 'Dr. Ernesto Gil', especialidad: 'Urología', fecha: '2025-07-05', hora: '15:00', estado: 'pendiente' }
   ];
 
-  constructor(private sanitizer: DomSanitizer) {}
+  private sanitizer = inject(DomSanitizer);
 
   // Métodos para cambiar estado
   confirmarCita(consulta: any) {

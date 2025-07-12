@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 @Component({
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   ],
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
    irAHome() {
     this.router.navigate(['/home']);
