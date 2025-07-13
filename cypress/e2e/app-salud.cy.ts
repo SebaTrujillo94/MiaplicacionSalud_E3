@@ -2,6 +2,7 @@
 
 describe('Mi Aplicación de Salud - Pruebas E2E', () => {
     beforeEach(() => {
+        // Visitar página principal (redirige a login)
         cy.visit('/');
     });
 

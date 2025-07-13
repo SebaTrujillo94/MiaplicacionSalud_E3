@@ -2,18 +2,17 @@
   "compilerOptions": {
     "target": "es2020",
     "lib": ["es2020", "dom"],
-    "types": ["node"],
     "moduleResolution": "node",
     "allowJs": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": false,
     "noEmit": true,
-    "resolveJsonModule": true
+    "typeRoots": ["./support"]
   },
   "include": [
     "**/*.ts",
-    "support/cypress-types.d.ts"
+    "support/**/*.d.ts"
   ],
   "exclude": []
 }
