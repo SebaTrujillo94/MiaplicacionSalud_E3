@@ -20,14 +20,17 @@ describe('HomePage - Tests Básicos', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).not.toBeNull();
+    expect(component).not.toBeUndefined();
   });
 
   it('debería tener un título', () => {
-    expect(fixture.nativeElement.querySelector('ion-title')).toBeTruthy();
+    const title = fixture.nativeElement.querySelector('ion-title');
+    expect(title).not.toBeNull();
   });
 
   it('debería renderizar contenido', () => {
-    expect(fixture.nativeElement.textContent).toContain('');
+    const content = fixture.nativeElement.textContent;
+    expect(content).not.toBeNull();
   });
 });

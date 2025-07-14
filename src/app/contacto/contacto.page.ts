@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonIcon } from '@ionic/angular/standalone';
 import { Geolocation } from '@capacitor/geolocation';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
-import { location, locationOutline, callOutline, mailOutline, trash } from 'ionicons/icons';
+import { location, locationOutline, callOutline, mailOutline, trash, add, refresh } from 'ionicons/icons';
+import { DatabaseService, Consulta } from '../services/database.service';
 
 @Component({
   selector: 'app-contacto',
@@ -29,42 +30,124 @@ import { location, locationOutline, callOutline, mailOutline, trash } from 'ioni
     IonIcon,
   ]
 })
-export class ContactoPage {
+export class ContactoPage implements OnInit, OnDestroy {
   latitud: number | null = null;
   longitud: number | null = null;
   mapaUrl: SafeResourceUrl | null = null;
   estadoGPS: string = 'Listo para obtener ubicación';
-
-  constructor() {
-    addIcons({location,trash,locationOutline,callOutline,mailOutline});
-  }
-
-  ultimasConsultas = [
-    { nombre: 'Dra. Ana Pérez', especialidad: 'Cardiología', fecha: '2024-05-20', hora: '10:00' },
-    { nombre: 'Dr. Luis Gómez', especialidad: 'Dermatología', fecha: '2024-04-15', hora: '15:30' },
-    { nombre: 'Dra. Marta Ruiz', especialidad: 'Pediatría', fecha: '2024-03-10', hora: '09:00' },
-    { nombre: 'Dr. Juan Torres', especialidad: 'Neurología', fecha: '2024-02-28', hora: '12:00' },
-    { nombre: 'Dra. Paula Díaz', especialidad: 'Ginecología', fecha: '2024-01-18', hora: '11:15' },
-    { nombre: 'Dr. Carlos Méndez', especialidad: 'Oftalmología', fecha: '2023-12-05', hora: '16:45' }
-  ];
-
-  proximasConsultas = [
-    { nombre: 'Dra. Laura Sánchez', especialidad: 'Endocrinología', fecha: '2025-06-10', hora: '08:30', estado: 'pendiente' },
-    { nombre: 'Dr. Mario Vargas', especialidad: 'Traumatología', fecha: '2025-06-15', hora: '14:00', estado: 'pendiente' },
-    { nombre: 'Dra. Silvia Romero', especialidad: 'Reumatología', fecha: '2025-06-20', hora: '10:45', estado: 'pendiente' },
-    { nombre: 'Dr. Andrés López', especialidad: 'Psiquiatría', fecha: '2025-06-25', hora: '13:30', estado: 'pendiente' },
-    { nombre: 'Dra. Patricia León', especialidad: 'Otorrinolaringología', fecha: '2025-07-01', hora: '09:15', estado: 'pendiente' },
-    { nombre: 'Dr. Ernesto Gil', especialidad: 'Urología', fecha: '2025-07-05', hora: '15:00', estado: 'pendiente' }
-  ];
+  
+  // Datos desde la base de datos
+  ultimasConsultas: Consulta[] = [];
+  proximasConsultas: Consulta[] = [];
+  isLoading = true;
+  dbStatus = 'Cargando...';
 
   private sanitizer = inject(DomSanitizer);
+  public databaseService = inject(DatabaseService);
 
-  // Métodos para cambiar estado
-  confirmarCita(consulta: any) {
-    consulta.estado = 'confirmada';
+  constructor() {
+    addIcons({location, trash, locationOutline, callOutline, mailOutline, add, refresh});
   }
-  cancelarCita(consulta: any) {
-    consulta.estado = 'cancelada';
+
+  async ngOnInit() {
+    console.log('🔄 Inicializando página Contacto...');
+    await this.cargarDatos();
+  }
+
+  ngOnDestroy() {
+    // Limpiar recursos si es necesario
+  }
+
+  async cargarDatos() {
+    try {
+      this.isLoading = true;
+      this.dbStatus = 'Cargando datos...';
+
+      // Esperar un momento para que la BD se inicialice
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      if (this.databaseService.isDatabaseReady()) {
+        this.dbStatus = '✅ Base de datos SQLite activa';
+        console.log('📊 Cargando datos desde SQLite...');
+      } else {
+        this.dbStatus = '⚠️ Usando datos en memoria (modo web)';
+        console.log('📄 Cargando datos desde memoria...');
+      }
+
+      // Cargar consultas pasadas
+      const consultasPasadas = await this.databaseService.obtenerConsultas('pasada');
+      this.ultimasConsultas = consultasPasadas;
+
+      // Cargar consultas próximas
+      const consultasProximas = await this.databaseService.obtenerConsultas('proxima');
+      this.proximasConsultas = consultasProximas;
+
+      console.log('✅ Datos cargados:', {
+        pasadas: this.ultimasConsultas.length,
+        proximas: this.proximasConsultas.length
+      });
+
+    } catch (error) {
+      console.error('❌ Error cargando datos:', error);
+      this.dbStatus = '❌ Error en base de datos';
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  // Métodos para cambiar estado con persistencia
+  async confirmarCita(consulta: Consulta) {
+    if (consulta.id) {
+      const success = await this.databaseService.actualizarEstadoConsulta(consulta.id, 'confirmada');
+      if (success) {
+        consulta.estado = 'confirmada';
+        console.log('✅ Cita confirmada en BD');
+      } else {
+        console.log('⚠️ Error confirmando en BD, actualizado localmente');
+        consulta.estado = 'confirmada';
+      }
+    } else {
+      consulta.estado = 'confirmada';
+    }
+  }
+
+  async cancelarCita(consulta: Consulta) {
+    if (consulta.id) {
+      const success = await this.databaseService.actualizarEstadoConsulta(consulta.id, 'cancelada');
+      if (success) {
+        consulta.estado = 'cancelada';
+        console.log('✅ Cita cancelada en BD');
+      } else {
+        console.log('⚠️ Error cancelando en BD, actualizado localmente');
+        consulta.estado = 'cancelada';
+      }
+    } else {
+      consulta.estado = 'cancelada';
+    }
+  }
+
+  // Método para recargar datos
+  async recargarDatos() {
+    console.log('🔄 Recargando datos...');
+    await this.cargarDatos();
+  }
+
+  // Método para agregar nueva consulta (ejemplo)
+  async agregarConsultaEjemplo() {
+    const nuevaConsulta: Omit<Consulta, 'id'> = {
+      nombre: 'Dr. Ejemplo',
+      especialidad: 'Medicina General',
+      fecha: '2025-08-01',
+      hora: '10:00',
+      estado: 'pendiente',
+      tipo: 'proxima'
+    };
+
+    const id = await this.databaseService.agregarConsulta(nuevaConsulta);
+    if (id) {
+      console.log('✅ Nueva consulta agregada con ID:', id);
+      await this.cargarDatos(); // Recargar datos
+    }
   }
 
   // Geolocalización y mapa seguro

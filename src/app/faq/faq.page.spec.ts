@@ -5,13 +5,18 @@ describe('FaqPage', () => {
   let component: FAQPage;
   let fixture: ComponentFixture<FAQPage>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [FAQPage]
+    }).compileComponents();
+
     fixture = TestBed.createComponent(FAQPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).not.toBeNull();
+    expect(component).not.toBeUndefined();
   });
 });

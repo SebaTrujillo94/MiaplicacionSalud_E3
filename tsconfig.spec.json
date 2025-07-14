@@ -4,8 +4,10 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-      "jasmine"
-    ]
+      "jasmine",
+      "node"
+    ],
+    "skipLibCheck": true
   },
   "files": [
     "src/test.ts",
@@ -14,5 +16,9 @@
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "cypress/**/*",
+    "e2e/**/*"
   ]
 }
