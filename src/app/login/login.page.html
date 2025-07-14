@@ -18,6 +18,12 @@
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input [(ngModel)]="contrasena" type="password"></ion-input>
       </ion-item>
+      
+      <ion-item style="margin-top: 10px;">
+        <ion-checkbox [(ngModel)]="recordarCredenciales" style="margin-right: 10px;"></ion-checkbox>
+        <ion-label>Recordar mis credenciales</ion-label>
+      </ion-item>
+      
       <ion-button expand="block" color="primary" (click)="login()" class="animated-btn" style="margin-top: 1rem;">
         Ingresar
       </ion-button>

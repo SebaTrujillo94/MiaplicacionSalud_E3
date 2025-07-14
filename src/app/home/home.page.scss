@@ -26,6 +26,36 @@
   text-decoration: none;
 }
 
+/* Botón Compacto del Clima */
+.weather-button {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  margin: 16px 0;
+  border-radius: 12px;
+  
+  .weather-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 8px;
+    flex: 1;
+    
+    .temp {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1;
+    }
+    
+    .location {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+  }
+}
+
 /* Estilos del Widget de Clima Mejorado */
 .weather-card {
   background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
@@ -51,7 +81,7 @@
 .weather-content {
   position: relative;
   z-index: 1;
-  padding: 20px;
+  padding: 12px; // Reducido aún más para mejor proporción
 }
 
 .weather-header {
@@ -87,18 +117,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 12px; // Reducido para mejor proporción
   
   .temperature-section {
     .temperature {
-      font-size: 64px;
+      font-size: 32px; // Reducido significativamente para igualar proporción con "Bienvenido"
       font-weight: 300;
       line-height: 1;
       margin-bottom: 4px;
     }
     
     .feels-like {
-      font-size: 14px;
+      font-size: 10px; // Reducido para mantener proporción
       opacity: 0.8;
     }
   }
@@ -107,16 +137,16 @@
     text-align: center;
     
     .weather-icon {
-      margin-bottom: 8px;
+      margin-bottom: 4px; // Reducido
       
       ion-icon {
-        font-size: 48px;
+        font-size: 24px; // Reducido significativamente
         filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
       }
     }
     
     .weather-description {
-      font-size: 16px;
+      font-size: 12px; // Reducido para mantener proporción
       font-weight: 500;
       text-transform: capitalize;
     }
@@ -126,24 +156,24 @@
 .weather-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 8px; // Reducido para mejor proporción
+  margin-bottom: 12px; // Reducido
   
   .detail-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px; // Reducido
     background: rgba(255, 255, 255, 0.1);
-    padding: 12px;
-    border-radius: 12px;
+    padding: 6px; // Reducido significativamente
+    border-radius: 6px; // Reducido
     backdrop-filter: blur(10px);
     
     ion-icon {
-      font-size: 18px;
+      font-size: 14px; // Reducido
     }
     
     .detail-label {
-      font-size: 12px;
+      font-size: 10px; // Reducido para mantener proporción
       opacity: 0.8;
       flex: 1;
     }
@@ -209,5 +239,34 @@
   
   .weather-details {
     grid-template-columns: 1fr;
+  }
+}
+
+// Estilos para el toggle de tema
+.theme-toggle {
+  --background: rgba(255, 255, 255, 0.2);
+  --background-checked: rgba(255, 255, 255, 0.4);
+  --handle-background: white;
+  --handle-background-checked: #ffd700;
+  margin-right: 8px;
+  
+  &::part(track) {
+    border-radius: 16px;
+    height: 24px;
+    width: 44px;
+  }
+  
+  &::part(handle) {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.theme-label {
+  margin-right: 6px;
+  
+  ion-icon {
+    color: rgba(255, 255, 255, 0.9);
   }
 }

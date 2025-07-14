@@ -2,9 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonFooter, IonButtons } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonFooter, IonButtons, IonToggle, IonLabel, ModalController } from '@ionic/angular/standalone';
 import { ApiService } from '../services/api.service';
 import { StorageService } from '../services/storage.service';
+import { WeatherModalComponent } from '../components/weather-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,9 @@ import { StorageService } from '../services/storage.service';
     IonCardContent,
     IonIcon,
     IonFooter,
-    IonButtons
+    IonButtons,
+    IonToggle,
+    IonLabel
   ]
 })
 export class HomePage implements OnInit {
@@ -40,6 +43,7 @@ export class HomePage implements OnInit {
   private router = inject(Router);
   private api = inject(ApiService);
   private storage = inject(StorageService);
+  private modalController = inject(ModalController);
 
   async ngOnInit(): Promise<void> {
     // Obtener usuario del almacenamiento persistente
@@ -127,10 +131,9 @@ export class HomePage implements OnInit {
 
   async cerrarSesion() {
     if (window.confirm('¿Estás seguro que deseas cerrar sesión?')) {
-      // Limpiar tanto localStorage como almacenamiento persistente
-      localStorage.removeItem('usuario');
+      // Solo limpiar la sesión activa, NO las credenciales guardadas
+      localStorage.removeItem('sesion_activa');
       localStorage.removeItem('horaIngreso');
-      await this.storage.remove('usuario');
       await this.storage.remove('climaHoy');
       this.router.navigate(['/login']);
     }
@@ -222,5 +225,21 @@ export class HomePage implements OnInit {
     // Por simplicidad, retornamos un texto fijo
     // En una implementación real, calcularías la diferencia de tiempo
     return '5 min';
+  }
+
+  // Método para abrir el modal del clima
+  async openWeatherModal() {
+    const modal = await this.modalController.create({
+      component: WeatherModalComponent,
+      componentProps: {
+        clima: this.clima,
+        getWeatherIcon: this.getWeatherIcon.bind(this),
+        getWeatherColor: this.getWeatherColor.bind(this),
+        getCurrentTime: this.getCurrentTime.bind(this),
+        getTimeSinceUpdate: this.getTimeSinceUpdate.bind(this),
+        refreshWeather: this.refreshWeather.bind(this)
+      }
+    });
+    return await modal.present();
   }
 }
