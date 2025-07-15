@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Theme Toggle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark {
+            background-color: #121212;
+            color: white;
+        }
+        
+        body:not(.dark) {
+            background-color: white;
+            color: black;
+        }
+        
+        .theme-toggle {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .dark .status {
+            background: #333;
+            border: 1px solid #555;
+        }
+        
+        .status {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prueba de Theme Toggle</h1>
+    
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+    
+    <div class="status" id="status">
+        Tema actual: <span id="theme-status">Light</span>
+    </div>
+    
+    <div class="status">
+        <p>Este es un texto de prueba para verificar el cambio de tema.</p>
+        <p>Si el toggle funciona, deberías ver los colores cambiar.</p>
+    </div>
+
+    <script>
+        let isDark = false;
+        
+        function toggleTheme() {
+            isDark = !isDark;
+            console.log('Toggle theme - isDark:', isDark);
+            
+            const body = document.body;
+            const html = document.documentElement;
+            
+            if (isDark) {
+                body.classList.add('dark');
+                html.classList.add('dark');
+                document.getElementById('theme-status').textContent = 'Dark';
+            } else {
+                body.classList.remove('dark');
+                html.classList.remove('dark');
+                document.getElementById('theme-status').textContent = 'Light';
+            }
+            
+            console.log('Classes applied - body:', body.classList.toString(), 'html:', html.classList.toString());
+        }
+        
+        // Inicializar
+        console.log('Test page loaded');
+    </script>
+</body>
+</html>

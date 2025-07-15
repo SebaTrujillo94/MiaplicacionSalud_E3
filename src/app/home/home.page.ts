@@ -49,15 +49,29 @@ export class HomePage implements OnInit {
     // Obtener usuario del almacenamiento persistente
     this.usuario = await this.storage.get('usuario') || localStorage.getItem('usuario') || '';
     
-    // Verificar tema guardado
-    const savedTheme = await this.storage.get('darkMode');
-    if (savedTheme !== null) {
-      this.isDark = savedTheme;
-      document.body.classList.toggle('dark', this.isDark);
-    }
+    // Aplicar tema al cargar la página
+    await this.applyStoredTheme();
 
     // Obtener y guardar el clima de hoy con persistencia
     await this.loadWeatherData();
+  }
+
+  // Método mejorado para aplicar el tema guardado
+  async applyStoredTheme() {
+    const savedTheme = await this.storage.get('darkMode') || localStorage.getItem('darkMode');
+    if (savedTheme !== null) {
+      this.isDark = savedTheme === 'true' || savedTheme === true;
+    } else {
+      // Detectar preferencia del sistema si no hay tema guardado
+      this.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    
+    // Aplicar tema con transición suave
+    document.documentElement.classList.toggle('dark', this.isDark);
+    document.body.classList.toggle('dark', this.isDark);
+    
+    // Añadir clase para transiciones suaves
+    document.body.classList.add('theme-transition');
   }
 
   async loadWeatherData() {
@@ -98,11 +112,40 @@ export class HomePage implements OnInit {
     });
   }
 
+  // Método mejorado para cambiar el tema
   async toggleTheme() {
     this.isDark = !this.isDark;
+    
+    // Aplicar tema a ambos elementos
+    document.documentElement.classList.toggle('dark', this.isDark);
     document.body.classList.toggle('dark', this.isDark);
-    // Persistir preferencia de tema
+    
+    // Agregar efecto de transición
+    document.body.classList.add('theme-fade-in');
+    
+    // Persistir preferencia de tema en ambos storages
     await this.storage.set('darkMode', this.isDark);
+    localStorage.setItem('darkMode', this.isDark.toString());
+    
+    // Remover clase de animación después de la transición
+    setTimeout(() => {
+      document.body.classList.remove('theme-fade-in');
+    }, 300);
+    
+    // Feedback háptico si está disponible
+    if ('vibrate' in navigator) {
+      navigator.vibrate(50);
+    }
+  }
+
+  // Método para obtener el nombre del tema actual
+  getCurrentThemeName(): string {
+    return this.isDark ? 'Modo Oscuro' : 'Modo Claro';
+  }
+
+  // Método para obtener el icono del tema
+  getThemeIcon(): string {
+    return this.isDark ? 'moon' : 'sunny';
   }
 
   login() {

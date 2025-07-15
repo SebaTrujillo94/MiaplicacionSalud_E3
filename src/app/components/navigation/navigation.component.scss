@@ -1,0 +1,53 @@
+.nav-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 48px;
+  
+  ion-icon {
+    margin-right: 12px;
+  }
+  
+  &:hover {
+    --background: var(--ion-color-light);
+  }
+}
+
+.logout-item {
+  border-top: 1px solid var(--ion-color-light);
+  margin-top: 8px;
+  
+  &:hover {
+    --background: var(--ion-color-danger-tint);
+  }
+}
+
+ion-popover {
+  --width: 250px;
+  --max-width: 90vw;
+}
+
+/* Animaciones para el botón del menú */
+ion-button {
+  transition: transform 0.2s ease;
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Estilos para tema oscuro */
+:root.dark {
+  .nav-item {
+    &:hover {
+      --background: var(--ion-color-dark-tint);
+    }
+  }
+  
+  .logout-item {
+    border-top-color: var(--ion-color-dark-tint);
+    
+    &:hover {
+      --background: rgba(var(--ion-color-danger-rgb), 0.1);
+    }
+  }
+}

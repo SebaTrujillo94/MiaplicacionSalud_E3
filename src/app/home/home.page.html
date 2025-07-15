@@ -2,15 +2,15 @@
   <ion-toolbar color="primary">
     <ion-title>Inicio</ion-title>
     <ion-buttons slot="end">
+      <ion-label class="theme-label">
+        <ion-icon [name]="getThemeIcon()" [class]="isDark ? 'moon-icon' : 'sun-icon'"></ion-icon>
+      </ion-label>
       <ion-toggle 
-        [(ngModel)]="isDark" 
+        [checked]="isDark"
         (ionChange)="toggleTheme()" 
         color="light"
-        class="theme-toggle">
+        [class]="'theme-toggle ' + (isDark ? 'toggle-checked' : '')">
       </ion-toggle>
-      <ion-label slot="start" class="theme-label">
-        <ion-icon [name]="isDark ? 'moon' : 'sunny'" size="small"></ion-icon>
-      </ion-label>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -33,15 +33,24 @@
     <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
   </ion-button>
 
-  <!-- Bienvenida -->
-  <ion-card class="animated-card">
+  <!-- Bienvenida con indicador de tema -->
+  <ion-card class="animated-card theme-transition">
     <ion-card-header>
       <ion-card-title>
         Bienvenido, {{ usuario }}
+        <ion-icon 
+          [name]="getThemeIcon()" 
+          [class]="'theme-indicator ' + (isDark ? 'dark-theme' : 'light-theme')"
+          style="float: right; font-size: 1.2em; opacity: 0.7;">
+        </ion-icon>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p>Accede a tus servicios de salud, agenda tus citas y consulta tu información personal.</p>
+      <p style="font-size: 0.9em; opacity: 0.8; margin-top: 8px;">
+        <ion-icon name="palette-outline" style="vertical-align: middle; margin-right: 4px;"></ion-icon>
+        Tema actual: {{ getCurrentThemeName() }}
+      </p>
     </ion-card-content>
   </ion-card>
 

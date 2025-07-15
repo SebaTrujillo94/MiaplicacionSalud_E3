@@ -35,3 +35,103 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 @import "@ionic/angular/css/palettes/dark.class.css";
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/*
+ * Custom Theme Variables
+ * -----------------------------------------------------
+ * Global theme customization for light and dark modes
+ */
+
+:root {
+  /* Light Mode Colors */
+  --app-background: #ffffff;
+  --app-text-primary: #000000;
+  --app-text-secondary: #666666;
+  --app-card-background: #ffffff;
+  --app-card-shadow: rgba(0, 0, 0, 0.1);
+  --app-border-color: #e0e0e0;
+  --app-accent-color: #3880ff;
+  --app-success-color: #2dd36f;
+  --app-warning-color: #ffc409;
+  --app-danger-color: #eb445a;
+  
+  /* Weather Widget Light Mode */
+  --weather-gradient-start: #74b9ff;
+  --weather-gradient-end: #0984e3;
+  --weather-text-color: #ffffff;
+  --weather-shadow: rgba(116, 185, 255, 0.3);
+  
+  /* Button Colors */
+  --button-primary-bg: #3880ff;
+  --button-primary-text: #ffffff;
+  --button-secondary-bg: #f4f5f8;
+  --button-secondary-text: #3880ff;
+}
+
+:root.dark {
+  /* Dark Mode Colors */
+  --app-background: #1e1e1e;
+  --app-text-primary: #ffffff;
+  --app-text-secondary: #a0a0a0;
+  --app-card-background: #2d2d2d;
+  --app-card-shadow: rgba(0, 0, 0, 0.4);
+  --app-border-color: #404040;
+  --app-accent-color: #4c8dff;
+  --app-success-color: #2fdf75;
+  --app-warning-color: #ffce31;
+  --app-danger-color: #ff4961;
+  
+  /* Weather Widget Dark Mode */
+  --weather-gradient-start: #2d3748;
+  --weather-gradient-end: #1a202c;
+  --weather-text-color: #ffffff;
+  --weather-shadow: rgba(0, 0, 0, 0.4);
+  
+  /* Button Colors */
+  --button-primary-bg: #4c8dff;
+  --button-primary-text: #ffffff;
+  --button-secondary-bg: #404040;
+  --button-secondary-text: #4c8dff;
+}
+
+/*
+ * Global Theme Application
+ * -----------------------------------------------------
+ * Apply theme variables to common elements
+ */
+
+body {
+  background-color: var(--app-background);
+  color: var(--app-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+ion-content {
+  --background: var(--app-background);
+  --color: var(--app-text-primary);
+}
+
+ion-card {
+  --background: var(--app-card-background);
+  --color: var(--app-text-primary);
+  box-shadow: 0 4px 16px var(--app-card-shadow);
+  border: 1px solid var(--app-border-color);
+}
+
+ion-item {
+  --background: var(--app-card-background);
+  --color: var(--app-text-primary);
+  --border-color: var(--app-border-color);
+}
+
+ion-button {
+  &.button-primary {
+    --background: var(--button-primary-bg);
+    --color: var(--button-primary-text);
+  }
+  
+  &.button-secondary {
+    --background: var(--button-secondary-bg);
+    --color: var(--button-secondary-text);
+  }
+}
