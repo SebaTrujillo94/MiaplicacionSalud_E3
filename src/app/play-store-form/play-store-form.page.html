@@ -1,0 +1,238 @@
+<!-- FORMULARIO PLAY STORE - MiAppSalud -->
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>📱 Formulario Play Store</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <!-- Header con información del proyecto -->
+  <ion-card class="project-header">
+    <ion-card-header>
+      <ion-card-title>🏥 MiAppSalud - Formulario de Publicación</ion-card-title>
+      <ion-card-subtitle>Información completa para Google Play Store</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <form [formGroup]="playStoreForm" (ngSubmit)="onSubmit()">
+    
+    <!-- INFORMACIÓN BÁSICA DE LA APP -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>📋 Información Básica</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-item>
+          <ion-label position="stacked">Título de la Aplicación *</ion-label>
+          <ion-input 
+            formControlName="appTitle" 
+            placeholder="MiAppSalud - Gestión de Salud Personal"
+            maxlength="50"
+            counter="true">
+          </ion-input>
+          <ion-note slot="helper">Máximo 50 caracteres</ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Descripción Corta *</ion-label>
+          <ion-textarea 
+            formControlName="shortDescription"
+            placeholder="Aplicación integral para gestionar tu salud con widget de clima"
+            maxlength="80"
+            rows="2"
+            counter="true">
+          </ion-textarea>
+          <ion-note slot="helper">Máximo 80 caracteres para Google Play</ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Descripción Completa *</ion-label>
+          <ion-textarea 
+            formControlName="fullDescription"
+            maxlength="4000"
+            rows="8"
+            counter="true"
+            placeholder="Descripción detallada de MiAppSalud...">
+          </ion-textarea>
+          <ion-note slot="helper">Entre 200-4000 caracteres</ion-note>
+        </ion-item>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- CATEGORIZACIÓN -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>🏷️ Categorización</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-item>
+          <ion-label>Categoría Principal *</ion-label>
+          <ion-select formControlName="category" placeholder="Seleccionar categoría">
+            <ion-select-option value="medical">Medicina</ion-select-option>
+            <ion-select-option value="health_fitness">Salud y Fitness</ion-select-option>
+            <ion-select-option value="lifestyle">Estilo de vida</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Clasificación de Contenido *</ion-label>
+          <ion-select formControlName="contentRating" placeholder="Seleccionar clasificación">
+            <ion-select-option value="everyone">Apto para todos</ion-select-option>
+            <ion-select-option value="low_maturity">Baja madurez</ion-select-option>
+            <ion-select-option value="medium_maturity">Madurez media</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Palabras Clave/Tags</ion-label>
+          <ion-input 
+            formControlName="keywords"
+            placeholder="salud, medicina, clima, citas médicas, ionic, angular">
+          </ion-input>
+          <ion-note slot="helper">Separadas por comas</ion-note>
+        </ion-item>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- INFORMACIÓN DE CONTACTO -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>📞 Información de Contacto</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-item>
+          <ion-label position="stacked">Email de Soporte *</ion-label>
+          <ion-input 
+            formControlName="supportEmail"
+            type="email"
+            placeholder="soporte@miappsalud.com">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Política de Privacidad *</ion-label>
+          <ion-input 
+            formControlName="privacyPolicyUrl"
+            placeholder="https://miappsalud.com/privacy">
+          </ion-input>
+        </ion-item>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- PERMISOS -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>🔐 Permisos de la Aplicación</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-list>
+          <ion-item>
+            <ion-checkbox formControlName="internetPermission" checked="true"></ion-checkbox>
+            <ion-label class="ion-margin-start">
+              <h3>📡 Internet</h3>
+              <p>Para conectar con API del clima</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-checkbox formControlName="locationPermission" checked="true"></ion-checkbox>
+            <ion-label class="ion-margin-start">
+              <h3>📍 Ubicación</h3>
+              <p>Para datos meteorológicos locales</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-checkbox formControlName="storagePermission" checked="true"></ion-checkbox>
+            <ion-label class="ion-margin-start">
+              <h3>💾 Almacenamiento</h3>
+              <p>Para base de datos SQLite</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- CARACTERÍSTICAS -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>✨ Características Principales</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-list>
+          <ion-item>
+            <ion-icon name="shield-checkmark" slot="start" color="success"></ion-icon>
+            <ion-label>
+              <h3>Sistema de Autenticación</h3>
+              <p>Login seguro con persistencia</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="contrast" slot="start" color="primary"></ion-icon>
+            <ion-label>
+              <h3>Tema Dark/Light Mode</h3>
+              <p>Cambio dinámico de tema</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="partly-sunny" slot="start" color="warning"></ion-icon>
+            <ion-label>
+              <h3>Widget de Clima</h3>
+              <p>Información meteorológica</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="server" slot="start" color="secondary"></ion-icon>
+            <ion-label>
+              <h3>Base de Datos Local</h3>
+              <p>SQLite para persistencia</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- BOTONES DE ACCIÓN -->
+    <div class="form-actions ion-padding">
+      
+      <ion-button 
+        expand="block" 
+        type="submit" 
+        [disabled]="!playStoreForm.valid"
+        color="success">
+        <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+        Generar Formulario Play Store
+      </ion-button>
+
+      <ion-button 
+        expand="block" 
+        fill="outline" 
+        (click)="exportToPDF()"
+        color="primary"
+        class="ion-margin-top">
+        <ion-icon name="document-text" slot="start"></ion-icon>
+        Exportar como PDF
+      </ion-button>
+
+    </div>
+
+  </form>
+
+</ion-content>

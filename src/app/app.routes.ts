@@ -30,4 +30,8 @@ export const routes: Routes = [
     path: 'perfil',
     loadComponent: () => import('./perfil/perfil.page').then( m => m.PerfilPage)
   },
+  {
+    path: 'play-store-form',
+    loadComponent: () => import('./play-store-form/play-store-form.page').then( m => m.PlayStoreFormPage)
+  },
 ];

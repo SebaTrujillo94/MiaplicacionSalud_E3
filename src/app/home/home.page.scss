@@ -30,6 +30,61 @@
   }
 }
 
+// Estilos para la nueva sección de desarrollo
+.development-card {
+  background: linear-gradient(135deg, 
+    var(--ion-color-success-tint), 
+    var(--ion-color-success));
+  color: white;
+  margin: 20px 0;
+  
+  ion-card-title {
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  ion-card-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+  }
+  
+  .features-list {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 8px;
+    
+    ion-item {
+      --background: transparent;
+      --color: white;
+      --min-height: 32px;
+      
+      ion-label {
+        color: white;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  ion-button {
+    --background: rgba(255, 255, 255, 0.2);
+    --color: white;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    
+    &:hover {
+      --background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
 .weather-button {
   --padding-start: 16px;
   --padding-end: 16px;
