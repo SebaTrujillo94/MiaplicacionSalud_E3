@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ApiService } from './api.service';
 import { StorageService } from './storage.service';
 import { ThemeService } from './theme.service';
@@ -54,12 +55,15 @@ describe('StorageService - Pruebas Unitarias MiAppSalud', () => {
 
 describe('ApiService - Pruebas Unitarias MiAppSalud', () => {
   let service: ApiService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [ApiService]
     });
     service = TestBed.inject(ApiService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {

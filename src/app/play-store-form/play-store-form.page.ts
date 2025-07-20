@@ -4,6 +4,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-play-store-form',
@@ -169,16 +170,207 @@ Desarrollada siguiendo las mejores prácticas de la industria y los lineamientos
 
   async exportToPDF() {
     const toast = await this.toastController.create({
-      message: '📄 Exportando formulario a PDF...',
-      duration: 2000,
+      message: '📄 Generando PDF del formulario Play Store...',
+      duration: 3000,
       color: 'primary',
       position: 'top'
     });
     await toast.present();
 
-    // Aquí iría la lógica para generar PDF
-    console.log('Generando PDF del formulario Play Store');
-    console.log('Datos del formulario:', this.playStoreForm.value);
+    try {
+      // Crear nuevo documento PDF
+      const doc = new jsPDF();
+      const formData = this.playStoreForm.value;
+      
+      // Configuración de fuentes y colores
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.setTextColor(40, 40, 40);
+      
+      // TÍTULO PRINCIPAL
+      doc.text('📱 FORMULARIO GOOGLE PLAY STORE', 20, 25);
+      doc.text('MiAppSalud - Gestión de Salud Personal', 20, 35);
+      
+      // Línea separadora
+      doc.setLineWidth(0.5);
+      doc.line(20, 40, 190, 40);
+      
+      let yPosition = 55;
+      
+      // INFORMACIÓN BÁSICA
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(0, 123, 255);
+      doc.text('📋 INFORMACIÓN BÁSICA', 20, yPosition);
+      yPosition += 10;
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(60, 60, 60);
+      
+      doc.text(`Título de la App: ${formData.appTitle}`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`Descripción Corta: ${formData.shortDescription}`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`Categoría: ${this.getCategoryName(formData.category)}`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`Clasificación: ${this.getContentRatingName(formData.contentRating)}`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`Palabras Clave: ${formData.keywords}`, 25, yPosition);
+      yPosition += 15;
+      
+      // INFORMACIÓN DE CONTACTO
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(220, 53, 69);
+      doc.text('📞 INFORMACIÓN DE CONTACTO', 20, yPosition);
+      yPosition += 10;
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(60, 60, 60);
+      
+      doc.text(`Email de Soporte: ${formData.supportEmail}`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`Política de Privacidad: ${formData.privacyPolicyUrl}`, 25, yPosition);
+      yPosition += 15;
+      
+      // PERMISOS DE LA APLICACIÓN
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(40, 167, 69);
+      doc.text('🔐 PERMISOS REQUERIDOS', 20, yPosition);
+      yPosition += 10;
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(60, 60, 60);
+      
+      doc.text(`${formData.internetPermission ? '✅' : '❌'} Acceso a Internet`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`${formData.locationPermission ? '✅' : '❌'} Acceso a Ubicación`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`${formData.storagePermission ? '✅' : '❌'} Acceso a Almacenamiento`, 25, yPosition);
+      yPosition += 15;
+      
+      // INFORMACIÓN TÉCNICA
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(255, 193, 7);
+      doc.text('⚙️ INFORMACIÓN TÉCNICA', 20, yPosition);
+      yPosition += 10;
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(60, 60, 60);
+      
+      doc.text(`Versión de la App: ${formData.appVersion}`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`Código de Versión: ${formData.versionCode}`, 25, yPosition);
+      yPosition += 6;
+      doc.text(`Tipo de Aplicación: ${formData.pricing === 'free' ? 'Gratuita' : 'De Pago'}`, 25, yPosition);
+      yPosition += 15;
+      
+      // CARACTERÍSTICAS PRINCIPALES (nueva página si es necesario)
+      if (yPosition > 250) {
+        doc.addPage();
+        yPosition = 25;
+      }
+      
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(108, 117, 125);
+      doc.text('✨ CARACTERÍSTICAS PRINCIPALES', 20, yPosition);
+      yPosition += 10;
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(60, 60, 60);
+      
+      const features = [
+        '🔐 Sistema de Autenticación Seguro',
+        '🎨 Modo Oscuro/Claro Dinámico',
+        '🌤️ Widget de Clima Inteligente',
+        '💾 Base de Datos Local SQLite',
+        '🧭 Navegación Avanzada',
+        '🧪 Testing Integral (E2E + Unitarios)',
+        '📱 6 Páginas Principales Optimizadas',
+        '⚡ Performance y Lazy Loading'
+      ];
+      
+      features.forEach(feature => {
+        doc.text(feature, 25, yPosition);
+        yPosition += 6;
+      });
+      
+      yPosition += 10;
+      
+      // FOOTER CON INFORMACIÓN ADICIONAL
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(8);
+      doc.setTextColor(108, 117, 125);
+      doc.text('Documento generado automáticamente por MiAppSalud', 20, yPosition);
+      yPosition += 4;
+      doc.text(`Fecha de generación: ${new Date().toLocaleString('es-ES')}`, 20, yPosition);
+      yPosition += 4;
+      doc.text('Framework: Ionic 7 + Angular 17 | Capacitor 6', 20, yPosition);
+      
+      // Generar nombre de archivo con timestamp
+      const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+      const fileName = `MiAppSalud-PlayStore-Form-${timestamp}.pdf`;
+      
+      // Guardar el PDF
+      doc.save(fileName);
+      
+      // Mostrar toast de éxito
+      const successToast = await this.toastController.create({
+        message: `✅ PDF generado exitosamente: ${fileName}`,
+        duration: 4000,
+        color: 'success',
+        position: 'bottom',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          }
+        ]
+      });
+      await successToast.present();
+      
+      console.log(`✅ PDF guardado como: ${fileName}`);
+      console.log('📁 Ubicación: Carpeta de Descargas del navegador');
+      
+    } catch (error) {
+      console.error('❌ Error al generar PDF:', error);
+      
+      const errorToast = await this.toastController.create({
+        message: '❌ Error al generar el PDF. Inténtalo de nuevo.',
+        duration: 3000,
+        color: 'danger',
+        position: 'top'
+      });
+      await errorToast.present();
+    }
+  }
+
+  // Métodos auxiliares para traducir valores
+  private getCategoryName(category: string): string {
+    const categories: { [key: string]: string } = {
+      'health_fitness': 'Salud y Fitness',
+      'medical': 'Medicina',
+      'lifestyle': 'Estilo de Vida',
+      'productivity': 'Productividad'
+    };
+    return categories[category] || category;
+  }
+
+  private getContentRatingName(rating: string): string {
+    const ratings: { [key: string]: string } = {
+      'everyone': 'Apto para todos',
+      'teen': 'Adolescentes',
+      'mature': 'Adultos'
+    };
+    return ratings[rating] || rating;
   }
 
   async showValidationErrors() {

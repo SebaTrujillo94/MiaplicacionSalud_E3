@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonFooter, IonButtons, IonToggle, IonLabel, IonList, IonItem, ModalController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonFooter, IonButtons, IonToggle, IonLabel, IonList, IonItem, ModalController } from '@ionic/angular/standalone';
 import { ApiService } from '../services/api.service';
 import { StorageService } from '../services/storage.service';
 import { WeatherModalComponent } from '../components/weather-modal.component';
@@ -22,7 +22,8 @@ import { WeatherModalComponent } from '../components/weather-modal.component';
     IonButton,
     IonCard,           
     IonCardHeader,     
-    IonCardTitle,      
+    IonCardTitle,
+    IonCardSubtitle,
     IonCardContent,
     IonIcon,
     IonFooter,
